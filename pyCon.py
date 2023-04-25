@@ -116,6 +116,15 @@ def pencil(
     pencilSketch(os.getcwd(), image_name, rename)
 
 
+@app.command()
+def ascii(
+    image_name: str = typer.Argument(...,
+                                     help="Image name", show_default=False),
+):
+    """Converts image to ascii art"""
+    print(Ascii(image_name))
+
+
 @app.callback()
 def main(
     version: Optional[bool] = typer.Option(

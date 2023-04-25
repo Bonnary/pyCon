@@ -159,3 +159,28 @@ def pencilSketch(loc, image_name, rename=None):
         return
     cv2.imwrite(os.path.join(
         loc, f"{image_name}"), sketch_img)
+
+
+def Ascii(image_name):
+    image = cv2.imread(image_name)
+    # Convert the image to grayscale
+    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    # Resize the image
+    height, width = gray_image.shape
+    aspect_ratio = width/height
+    new_width = 120
+    new_height = int(new_width/aspect_ratio)
+    resized_image = cv2.resize(gray_image, (new_width, new_height))
+
+    # Define the ASCII characters to use for the conversion
+    ascii_chars = ["@", "#", "S", "%", "?", "*", "+", ";", ":", ",", "."]
+
+    # Convert each pixel to an ASCII character based on its intensity value
+    ascii_image = ""
+    for row in resized_image:
+        for pixel in row:
+            ascii_image += ascii_chars[pixel//25]
+        ascii_image += "\n"
+
+    return ascii_image
